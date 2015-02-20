@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    Sample code to simulate usage of SequenceInputStream in java.io package.
+*/
 package sequenceinputstreamwithenumerationdemo;
 
 import java.io.File;
@@ -34,7 +32,13 @@ public class SequenceInputStreamWithEnumerationDemo {
         MyInputStreamEnumerator myInputStreamEnumerator = new MyInputStreamEnumerator();
         SequenceInputStream sis = new SequenceInputStream(myInputStreamEnumerator);
         try {
-            FileOutputStream fos = new FileOutputStream("C:\\CoreCode\\threeinone.txt");
+            /*
+                   file threeinone.txt would be one consolidated file made out of
+                   the bytes read from each InputStream returned by an Enumeration.
+                   This Enumeration is fed to the constructor of SequenceInputStream
+            
+            */
+            FileOutputStream fos = new FileOutputStream("C:\\CoreCode\\threeinone.txt"); 
             int c;
             while ((c=sis.read())!= -1){
                 fos.write(c);
@@ -55,6 +59,7 @@ class MyInputStreamEnumerator implements Enumeration<FileInputStream> {
     int counter = 0;
     int getOf;
     public MyInputStreamEnumerator() {
+        //For dev. and testing purpose I have three .txt files at C:\\CoreCode\\NewCoreCodeDir 
         Path path = Paths.get("C:\\CoreCode\\NewCoreCodeDir");
         File file = path.toFile();
         File[] files = file.listFiles();
